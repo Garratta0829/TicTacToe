@@ -1,43 +1,150 @@
 
-let playerOneTurn = true
-const board = document.querySelector('.gameboard')
-let go = 'circle'
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// let gameboard2 = ['','','','','','','','','',]
+
+// gameboard2[0] = 'x'
+
+// console.log(gameboard2)
 
 
 const Gameboard = (() => {
     let gameboard = ['','','','','','','','','',]
+    const board = document.querySelector('.gameboard')
+    let go = 'circle'
 
     const render = () => {
-        gameboard.forEach((_cell, index) => {
+
+        for (let i = 0; i < gameboard.length; i++) {
             const square = document.createElement('div')
             square.classList.add('square')
-            square.id = index
-            square.addEventListener('click', addMark)
-            board.append(square)
+            square.id = i
+            square.addEventListener('click', (e) => {
+                const mark = document.createElement('div')
+                mark.classList.add(go)
+                e.target.append(mark)
+                console.log(e.target)
+                
+                go = go === 'circle' ? 'cross' : 'circle'
+
+                if (go === 'circle') {
+                    gameboard[i] = 1
+                    console.log(gameboard[i])
+                 } else if (go === 'cross') {
+                    gameboard[i] = 2
+                    console.log(gameboard[i])
+                 }
+
+                //  gameboard[i] = 'x'
+                 
+                //  if (square.contains)
+
+               
+
+                console.log(gameboard)
+
+                // e.target.removeEventListener('click', addMark)
+            })
             
-        })
-        console.log(gameboard)
+            //  console.log(gameboard)
+        
+
+            board.append(square)
+        }
+
+        // gameboard.forEach((_cell, index) => {
+           
+            console.log(gameboard)
+            
+        // })
+        // console.log(gameboard)
     }
+
+
+// function addMark(e) {
+// }
     return {
-        render
+        render,
+        gameboard,
+        board
     }
 })();
 
 Gameboard.render()
 
+const GameController = (() => {
+    for (let i=0; i <= gameboard.length; i++) {
 
-const playerFactory = (name, marker) => {
-    return {name, marker}
-}
+    }
 
-const player1 = playerFactory('player1', 'X')
-const player2 = playerFactory('player2', 'X')
+})();
 
 
-console.log(player1)
+const DisplayController = (() => {
+    const playerTurn = document.querySelector('.player-turn') 
+
+    const playerFactory = (name, marker) => {
+        return {name, marker}
+    }
+    
+    const player1 = playerFactory('player1', 'X')
+    const player2 = playerFactory('player2', 'O')
+    
+    
+    return {
+        playerTurn,
+
+    }
+
+
+})();
+
+DisplayController.playerTurn.innerText = 'hello'
+
+
+
 
 // const AddMark = ((e) => {
 //     const mark = document.createElement('div')
@@ -46,16 +153,9 @@ console.log(player1)
 
 // })();
 
-function addMark(e) {
-    
-    const mark = document.createElement('div')
-    mark.classList.add(go)
-    e.target.append(mark)
-    console.log(e.target)
-     go = go === 'circle' ? 'cross' : 'circle'
-     e.target.removeEventListener('click', addMark)
-     checkScore()
-}
+// if (winCombos[i] === gameboard[i]) {
+//     declare winner
+// }
 
 function checkScore() {
     const winCombos = [
@@ -68,31 +168,15 @@ function checkScore() {
         [0,4,8]
         [2,4,6]
     ]
+    // if ()
 }
  
 
 
+function restart() {
+    Gameboard.gameboard = ['','','','','','','','','',]
+    Gameboard.gameboard = ''
+}
 
 
 
-
-// blocks.forEach(block => block.addEventListener('click', () => {
-    
-//     if (playerOneTurn === true) {
-//         block.innerHTML = 'X'
-//         block.style.fontSize = '3rem'
-//         block.style.display = 'flex'
-//         block.style.justifyContent = 'center'
-//         block.style.alignItems = 'center'
-//         playerOneTurn = false
-//     } else if (playerOneTurn === false) {
-//         block.innerHTML = '0'
-//         block.style.fontSize = '3rem'
-//         block.style.display = 'flex'
-//         block.style.justifyContent = 'center'
-//         block.style.alignItems = 'center'
-//         playerOneTurn = true
-//     }
-    
-   
-// }))
