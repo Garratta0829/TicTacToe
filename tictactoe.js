@@ -1,4 +1,5 @@
 
+
 const playerFactory = (name, marker) => {
     return {name, marker}
 }
@@ -6,11 +7,8 @@ const playerFactory = (name, marker) => {
 const player1 = playerFactory('player1', 'cross')
 const player2 = playerFactory('player2', 'circle')
 
-// console.log(player1.marker)
-
 let activePlayer = player1
 console.log(activePlayer)
-
 
 
 const Gameboard = (() => {
@@ -21,6 +19,13 @@ const Gameboard = (() => {
     const addMark = (e) => {
         
     }
+
+    const playRound = () => {
+
+        
+    }
+
+    
     
     const render = () => {
 
@@ -33,25 +38,25 @@ const Gameboard = (() => {
                 const mark = document.createElement('div')
                 mark.classList.add(activePlayer.marker)
                 square.append(mark)
-                // console.log(e.target)
                 gameboard[i] = activePlayer.marker
                 activePlayer = activePlayer === player1 ? player2 : player1
-                // e.target.removeEventListener('click', addMark)
+                square.style.pointerEvents = 'none'
                 console.log(gameboard)
+                // GameController.checkWinner()
 
             })
             
             board.append(square)
             
         }
-        // square.style.pointerEvents = 'none'
-        console.log(gameboard) 
+        // console.log(gameboard) 
     }
 
+    // GameController.checkWinner()
     return {
         render,
         gameboard,
-        board
+        board,
     }
 
 })();
@@ -76,6 +81,7 @@ const GameController = (() => {
     // const checkScore = () = {}
 
         // separate check score function from the array of win combos
+     
         const winCombos = [
             [0,1,2]
             [3,4,5]
@@ -87,27 +93,34 @@ const GameController = (() => {
             [2,4,6]
         ]
 
-    const checkWinner = () => {
+        // const example = [
+        //     [cross, cross, cross]
+        //     [circle, cross, circle]
+        //     [circle, circle, circle]
+        // ]
+    
+        const checkWinner = () => {
         winCombos.forEach((item, index) => {
-            if (item[0] === activePlayer.marker && item[1] === activePlayer.marker && item[2] === activePlayer.marker)
+            for (let i = 0; i <= item.length; i++) {
+                if (Gameboard.gameboard[item[0]] === activePlayer.marker && Gameboard.gameboard[item[1]] === activePlayer.marker && Gameboard.gameboard[item[2]] === activePlayer.marker)
             {console.log(`${activePlayer} wins`)}
-        })
-    }
+            }
+            
+        })}
     
      
-    function restart() {
-        Gameboard.gameboard = ['','','','','','','','','',]
-        Gameboard.gameboard = ''
-    }
+    // function restart() {
+    //     Gameboard.gameboard = ['','','','','','','','','',]
+    //     Gameboard.gameboard = ''
+    // }
 
 
     return {
-        addMark,
         restart,
-        go,
         activePlayer,
         playRound,
-        checkWinner
+        checkWinner,
+        activePlayer
     }
 
 })();
