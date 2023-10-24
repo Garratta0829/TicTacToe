@@ -11,20 +11,34 @@ let activePlayer = player1
 console.log(activePlayer)
 
 
-const Gameboard = (() => {
+
+const Game = (() => {
     let gameboard = ['','','','','','','','','',]
     const board = document.querySelector('.gameboard')
-    
 
-    const addMark = (e) => {
+
+    const checkWinner = () => {
+
+        const winCombos = [
+            [0,1,2],
+            [3,4,5],
+            [6,7,8],
+            [0,3,6],
+            [1,4,7],
+            [2,5,8],
+            [0,4,8],
+            [2,4,6]
+        ];
+
+      
+    winCombos.forEach((item) => {
+        for (let i = 0; i <= item.length; i++) {
+            if (gameboard[item[0]] === activePlayer.marker && gameboard[item[1]] === activePlayer.marker && gameboard[item[2]] === activePlayer.marker)
+        {console.log(`${activePlayer} wins`)}
+        }
         
-    }
-
-    const playRound = () => {
-
-        
-    }
-
+    })
+}
     
     
     const render = () => {
@@ -42,7 +56,7 @@ const Gameboard = (() => {
                 activePlayer = activePlayer === player1 ? player2 : player1
                 square.style.pointerEvents = 'none'
                 console.log(gameboard)
-                // GameController.checkWinner()
+                checkWinner()
 
             })
             
@@ -57,56 +71,24 @@ const Gameboard = (() => {
         render,
         gameboard,
         board,
+        
+        
     }
 
 })();
 
-Gameboard.render()
+Game.render()
 
 
 
 const GameController = (() => {
 
    
-
-    // write a function that puts player.marker into gameboard array
-    // gameboard[i] += activePlayer.marker
     const playRound = () => {
         gameboard[i] = activePlayer.marker
         activePlayer = activePlayer === player1 ? player2 : player1
         console.log(gameboard)
     }
-   
-    
-    // const checkScore = () = {}
-
-        // separate check score function from the array of win combos
-     
-        const winCombos = [
-            [0,1,2]
-            [3,4,5]
-            [6,7,8]
-            [0,3,6]
-            [1,4,7]
-            [2,5,8]
-            [0,4,8]
-            [2,4,6]
-        ]
-
-        // const example = [
-        //     [cross, cross, cross]
-        //     [circle, cross, circle]
-        //     [circle, circle, circle]
-        // ]
-    
-        const checkWinner = () => {
-        winCombos.forEach((item, index) => {
-            for (let i = 0; i <= item.length; i++) {
-                if (Gameboard.gameboard[item[0]] === activePlayer.marker && Gameboard.gameboard[item[1]] === activePlayer.marker && Gameboard.gameboard[item[2]] === activePlayer.marker)
-            {console.log(`${activePlayer} wins`)}
-            }
-            
-        })}
     
      
     // function restart() {
@@ -133,34 +115,13 @@ const DisplayController = (() => {
     const playerTurn = document.querySelector('.player-turn') 
 
    
-    
-    
-    return {
+     return {
         playerTurn,
 
     }
-
 
 })();
 
 DisplayController.playerTurn.innerText = 'hello'
 
-
-
-
-
-
-// if (winCombos[i] === gameboard[i]) {
-//     declare winner
-// }
-
-
-
- // if (go === 'circle') {
-        //     gameboard[i] = 1
-        //     console.log(gameboard[i])
-        //  } else if (go === 'cross') {
-        //     gameboard[i] = 2
-        //     console.log(gameboard[i])
-        //  }
 
