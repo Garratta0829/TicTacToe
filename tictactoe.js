@@ -19,7 +19,7 @@ const Game = (() => {
 
     const player1 = playerFactory('player1', 'cross')
     const player2 = playerFactory('player2', 'circle')
-
+    // let activePlayer
     let activePlayer = player1
     // const gameStop = () => {
     //     if (gameIsOver) {
@@ -27,7 +27,9 @@ const Game = (() => {
     //     }
     // }
 
-
+    // const gameOver = () => {
+    //     if 
+    // }
   
 
     const restartBtn = document.querySelector('.restart')
@@ -40,9 +42,7 @@ const Game = (() => {
     })
 
     // GameController.test()
-    const test = () => {
-        console.log('this works')
-    }
+  
     
    
     const render = () => {
@@ -60,8 +60,12 @@ const Game = (() => {
                 square.style.pointerEvents = 'none'
                 gameboard[i] = activePlayer.marker
                 activePlayer = activePlayer === player1 ? player2 : player1
+                // DisplayController.displaySwitch()
+                playerTurn.innerText = `${activePlayer.name}'s Turn!`
+                GameController.checkForTie()
                 GameController.checkWinner()
                 console.log(gameboard)
+                console.log(activePlayer.name)
                 
                 
                 
@@ -94,7 +98,8 @@ const Game = (() => {
         board,
         activePlayer,
         playerTurn,
-        test
+        player1,
+        player2,
     }
 
 })();
@@ -105,16 +110,6 @@ const GameController = (() => {
 
    Game.render()
 
-   
-   Game.test()
-  
-   
-
-
-    const doStuff = () => {
-   
-    }
-    
     const checkWinner = () => {
         const winCombos = [
             [0,1,2],
@@ -127,19 +122,31 @@ const GameController = (() => {
             [2,4,6]
         ];
     
-      
-    winCombos.forEach((item) => {
+      winCombos.forEach((item) => {
         for (let i = 0; i <= item.length; i++) {
-            if (Game.gameboard[item[0]] === Game.activePlayer.marker && Game.gameboard[item[1]] === Game.activePlayer.marker && Game.gameboard[item[2]] === Game.activePlayer.marker)
+            if (Game.gameboard[item[0]] === Game.activePlayer.marker && 
+                Game.gameboard[item[1]] === Game.activePlayer.marker && 
+                Game.gameboard[item[2]] === Game.activePlayer.marker)
         {
             // gameIsOver = true
+            winnerDeclared = true
             Game.playerTurn.innerText = `${Game.activePlayer.name} wins!`
             console.log(`${Game.activePlayer.name} wins!`)
         }
         }
         
-    })
-        
+    })}
+
+
+    const checkForTie = () => {
+            for (let i = 0; i <= Game.gameboard.length; i++) {
+                if (Game.gameboard[0] !== '' && Game.gameboard[1] !== '' && Game.gameboard[2] !== '' && 
+                    Game.gameboard[3] !== '' && Game.gameboard[4] !== '' && Game.gameboard[5] !== '' && 
+                    Game.gameboard[6] !== '' && Game.gameboard[7] !== '' && Game.gameboard[8] !== '') {
+                    Game.playerTurn.innerText = 'Tie Game'
+
+                }
+            }     
     }
       
     
@@ -148,7 +155,7 @@ const GameController = (() => {
     return {
 
         checkWinner,
-        doStuff,
+        checkForTie,
         // activePlayer,
         // winCombos,
         // test,
@@ -163,17 +170,33 @@ const GameController = (() => {
 
 // this will deal with the UI, what text is popping up, etc
 const DisplayController = (() => {
-    const playerTurn = document.querySelector('.player-turn') 
+    // const playerTurn = document.querySelector('.player-turn') 
 
+    // Game.activePlayer = Game.activePlayer === Game.player1 ? Game.player2 : Game.player1
+    const turn = () => {
+
+    }
+    Game.playerTurn.innerText = `${Game.activePlayer.name}'s Turn!`
+
+    const displaySwitch = () => {
+        
+        Game.playerTurn.innerText = `${Game.activePlayer.name}'s Turn!`
+    }
+
+    const changePlayer = () => {
+        Game.playerTurn.innerText = Game.activePlayer.name
+    }
    
      return {
-        playerTurn,
+        // playerTurn,
+        displaySwitch,
+        changePlayer,
 
     }
 
 })();
 
-DisplayController.playerTurn.innerText = 'hello'
+// DisplayController.playerTurn.innerText = 'hello'
 
 
 //   const declareWinner = () => {
