@@ -20,21 +20,32 @@ const Game = (() => {
     
     let activePlayer = player1
     // let squares
+    let squares = document.getElementsByClassName('square')
+        console.log(squares)
   
     let winnerDeclared = false
+    let mark
 
     const restartBtn = document.querySelector('.restart')
 
     restartBtn.addEventListener('click', ()=> {
-        // let gameboard = ['','','','','','','','','',]
+        let gameboard = ['','','','','','','','','',]
         // board = ''
         console.log(board)
         console.log(gameboard)
-        for(let i=0; i <= board.length; i++) {
-
+        console.log(squares)
+        for(let i=0; i < squares.length; i++) {
+            // if (squares[i].contains(mark)) {
+                squares[i].classlist.remove(mark)
+            // }
             //  squares += i
-            square.remove(mark)
+            
         }
+
+        // Array.from(squares)
+        // squares.forEach((square) => {
+        //     square.remove(mark)
+        // })
         // console.log(squares)
 
 
@@ -70,7 +81,7 @@ const Game = (() => {
                 
                
                 
-                const mark = document.createElement('div')
+                mark = document.createElement('div')
                 // marks += mark
                 mark.classList.add(activePlayer.marker)
                 square.append(mark)
@@ -92,11 +103,10 @@ const Game = (() => {
             // squares += square
             board.append(square)
             
-    
+           
         }}
 
-        let squares = document.getElementsByClassName('square')
-        console.log(squares)
+        
 
        const noMove = () => {
         for(let i=0; i < squares.length; i++) {
