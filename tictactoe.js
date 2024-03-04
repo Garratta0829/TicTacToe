@@ -10,105 +10,103 @@ const playerFactory = (name, marker) => {
 
 const Game = (() => {
     let gameboard = ['','','','','','','','','',]
-    // let gameboard = []
     const board = document.querySelector('.gameboard')
-    let gameOver = false
     const playerTurn = document.querySelector('.player-turn')
+    const restartBtn = document.querySelector('.restart')
 
     const player1 = playerFactory('Player1', 'cross')
     const player2 = playerFactory('Player2', 'circle')
     
     let activePlayer = player1
-    // let squares
     let squares = document.getElementsByClassName('square')
-        console.log(squares)
-  
+    // let circles = document.getElementsByClassName('circle')
+    // let crosses = document.getElementsByClassName('crosses')
     let winnerDeclared = false
     let mark
+    let squareArray = Array.from(squares)
+    console.log(squareArray)
+    console.log(squares)
 
-    const restartBtn = document.querySelector('.restart')
+    
 
     restartBtn.addEventListener('click', ()=> {
         let gameboard = ['','','','','','','','','',]
         // board = ''
-        console.log(board)
+        // console.log(board)
         console.log(gameboard)
-        console.log(squares)
+        // console.log(squares)
         for(let i=0; i < squares.length; i++) {
-            // if (squares[i].contains(mark)) {
-                squares[i].classlist.remove(mark)
-            // }
-            //  squares += i
+
+            console.log(squares[i])
+            squares[i].innerHTML = ''
+            squares[i].style.pointerEvents = 'all'
             
         }
+        Game.winnerDeclared = false
+            activePlayer = player1
+            playerTurn.innerText = `${activePlayer.name}'s Turn!`
+        //     if (squares[i].contains(mark)) {
+        //         if (squares[i].contains('')) {
+        //             squares[i].classList.remove('square')
+        //         }
+            //     squares.forEach(function(square) {
+            //         square.remove()
+            //    })
+                    
 
-        // Array.from(squares)
-        // squares.forEach((square) => {
-        //     square.remove(mark)
-        // })
-        // console.log(squares)
+            // Array.prototype.forEach.call(squares, funcion {
+            //     square.remove()
+            // })
 
+            }
 
-        // board.forEach((square) => {
-        //     square.classList.remove(mark)
-        // })
+            
+      
+            
+        // }
+        // for(let i=0; i < squares.length; i++) {
+        //     squares[i].classlist.remove('square')
 
-    })
-
-    // for(let i=0; i <= board.length; i++) {
-    //     gameboard.push('')
-    //     i
-    // }
+        // }
+        // render()
         
+    )
+
+
+
+
 
    
     const render = () => {
 
-        
-        
         for (let i = 0; i < gameboard.length; i++) {
             const square = document.createElement('div')
             square.classList.add('square')
-            // let squares = querySelectorAll('.square')
-            
-            // console.log(squares)
             square.id = i
             playerTurn.innerText = `${activePlayer.name}'s Turn!`
-            if (Game.winnerDeclared === true) {
-                square.style.pointerEvents = 'none'
-            }
             square.addEventListener("click", () => {
                 
-               
-                
                 mark = document.createElement('div')
-                // marks += mark
                 mark.classList.add(activePlayer.marker)
                 square.append(mark)
-                
                 square.style.pointerEvents = 'none'
                 gameboard[i] = activePlayer.marker
                 activePlayer = activePlayer === player1 ? player2 : player1
-                // DisplayController.displaySwitch()
                 playerTurn.innerText = `${activePlayer.name}'s Turn!`
                 GameController.checkForTie()
                 GameController.checkWinner()
-                // if game is over, disable pointer events/ click ability
                 gameEnd()
-                // console.log(gameboard)
                 console.log(board)
 
       
             })
-            // squares += square
+
             board.append(square)
             
-           
         }}
 
         
-
-       const noMove = () => {
+    const disableClick = () => {
         for(let i=0; i < squares.length; i++) {
             squares[i].style.pointerEvents = 'none'
         }
@@ -116,12 +114,9 @@ const Game = (() => {
                
                 
                 
-        
-    
-
     const gameEnd = () => {
         if (Game.winnerDeclared === true) {
-            Game.noMove()
+            Game.disableClick()
             console.log('game Over')
         }
     }
@@ -136,7 +131,7 @@ const Game = (() => {
         player2,
         gameEnd,
         winnerDeclared,
-        noMove
+        disableClick
     
     }
 
@@ -207,40 +202,3 @@ const GameController = (() => {
 
 })();
 
-
-
-// const click = () => {
-//     // for (let i=0; i < board.length; i++) {
-//     board.forEach((square) => {
-//         // console.log(square.id)
-//         gameboard.push('')
-//         square.addEventListener("click", (e) => {
-            
-           
-
-//             const mark = document.createElement('div')
-//         // marks += mark
-//         mark.classList.add(activePlayer.marker)
-//         square.append(mark)
-//         // console.log(board.id)
-//         square.style.pointerEvents = 'none'
-//         gameboard[e.target.id] = activePlayer.marker
-        
-//         activePlayer = activePlayer === player1 ? player2 : player1
-//         playerTurn.innerText = `${activePlayer.name}'s Turn!`
-//         GameController.checkForTie()
-//         GameController.checkWinner()
-//         gameEnd()
-//         console.log(gameboard)
-//         // console.log(squares)
-//         // console.log(marks)
-//         // console.log(board)
-
-        
-            
-        
-        
-//     }) 
-
-
-//     })
